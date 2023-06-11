@@ -1,0 +1,34 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Class="averageCalculater.MainWindow"
+        Title="Calculate Average For Student" Height="287" Width="543">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="176*"/>
+            <ColumnDefinition Width="113*"/>
+            <ColumnDefinition Width="254*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Choose Student" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,14,0,0"/>
+        <ComboBox Margin="20,14,127,10"
+                  ItemsSource="{Binding StudentNames}" SelectedItem="{Binding SelectedStudent, Mode=TwoWay}" RenderTransformOrigin="0.508,0.656" Grid.Column="1" Grid.ColumnSpan="2"/>
+
+        <Label Content="Average" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+        <TextBox Grid.Row="2" Width="200" Margin="20,10,147,10" IsReadOnly="True" Text="{Binding Average}" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <DataGrid ItemsSource="{Binding IncludedCourses}" AutoGenerateColumns="False" Grid.ColumnSpan="3" Margin="158,10,147,-37" Grid.Row="3" RenderTransformOrigin="0.151,0.683">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Course Name" Binding="{Binding Course_name}" Width="*" />
+                <DataGridTextColumn Header="Course Points" Binding="{Binding Course_points}" Width="Auto" />
+                <DataGridTextColumn Header="Score" Binding="{Binding Score}" Width="Auto" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>
