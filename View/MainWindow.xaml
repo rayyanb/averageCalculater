@@ -21,8 +21,8 @@
                   ItemsSource="{Binding StudentNames}" SelectedItem="{Binding SelectedStudent, Mode=TwoWay}" RenderTransformOrigin="0.508,0.656" Grid.Column="1" Grid.ColumnSpan="2"/>
 
         <Label Content="Average" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
-        <TextBox Grid.Row="2" Width="200" Margin="20,10,147,10" IsReadOnly="True" Text="{Binding Average}" Grid.Column="1" Grid.ColumnSpan="2"/>
-        <DataGrid ItemsSource="{Binding IncludedCourses}" AutoGenerateColumns="False" Grid.ColumnSpan="3" Margin="158,10,147,-37" Grid.Row="3" RenderTransformOrigin="0.151,0.683">
+        <TextBox Grid.Row="2" Margin="20,10,127,10" IsReadOnly="True" Text="{Binding Average}" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <DataGrid ItemsSource="{Binding IncludedCourses}" AutoGenerateColumns="False" Grid.ColumnSpan="2" Margin="11,10,118,-37" Grid.Row="3" RenderTransformOrigin="0.151,0.683" Grid.Column="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Course Name" Binding="{Binding Course_name}" Width="*" />
                 <DataGridTextColumn Header="Course Points" Binding="{Binding Course_points}" Width="Auto" />
