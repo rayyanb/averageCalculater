@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Input;
 using averageCalculater.Model;
 
 namespace averageCalculater
@@ -150,8 +151,8 @@ namespace averageCalculater
                     courses = new List<Courses>
                     {
                         new Courses { Id = "31", Course_name = "Physics", Course_points = 4, Score = 88 },
-                        new Courses { Id = "32", Course_name = "Computer Science", Course_points = 4, Score = 72 },
-                        new Courses { Id = "33", Course_name = "English", Course_points = 3, Score = 76 },
+                        new Courses { Id = "32", Course_name = "Computer Science", Course_points = 2, Score = 72 },
+                        new Courses { Id = "33", Course_name = "English", Course_points = 2, Score = 76 },
                         new Courses { Id = "34", Course_name = "Biology", Course_points = 4, Score = 84 },
                         new Courses { Id = "35", Course_name = "History", Course_points = 2, Score = 82 },
                     }
@@ -225,7 +226,6 @@ namespace averageCalculater
                 IncludedCourses = new List<Courses>();
                 return;
             }
-
             List<Courses> studentCourses = selectedStudent.courses;
             if (studentCourses == null || studentCourses.Count == 0)
             {
@@ -233,61 +233,16 @@ namespace averageCalculater
                 IncludedCourses = new List<Courses>();
                 return;
             }
-
             List<Courses> bestCourseCombination = new List<Courses>();
             double bestAverage = 0;
-
-            // Generate all possible combinations of courses with replacements
-            List<List<Courses>> courseCombinations = GetCombinations(studentCourses);
-
-            // Calculate average for each combination and find the best average
-            foreach (List<Courses> combination in courseCombinations)
-            {
-                double sumScores = combination.Sum(c => c.Score*c.Course_points);
-                double average = sumScores / combination.Sum(c=>c.Course_points);
-
-                if (average > bestAverage)
-                {
-                    bestAverage = average;
-                    bestCourseCombination = new List<Courses>(combination);
-                }
-            }
-
+            // Generate best possible combinations of courses 
+            List<Courses> best_courses = selectedStudent.GetBestCourses(10);
+            // Calculate average 
+            bestAverage = selectedStudent.CalculateAverage(best_courses);
+            bestCourseCombination = best_courses;
             IncludedCourses = bestCourseCombination;
             Average = bestAverage.ToString("F2");
         }
-
-       
-     
-        public  List<List<Courses>> GetCombinations(IEnumerable<Courses> objects)
-        {
-            List<List<Courses>> result = new List<List<Courses>>();
-
-            var array = objects.ToArray();
-            var n = array.Length;
-
-            for (var i = 0; i < (1 << n); i++)
-            {
-                List<Courses> combination = new List<Courses>();
-
-                for (var j = 0; j < n; j++)
-                {
-                    if ((i & (1 << j)) > 0)
-                    {
-                        combination.Add(array[j]);
-                    }
-                }
-
-                if (combination.Sum(obj => obj.Course_points) == 10)
-                {
-                    result.Add(combination);
-                }
-            }
-
-            return result;
-        }
-        
-
 
         #region INotifyPropertyChanged Implementation
 
